@@ -1,0 +1,7 @@
+{
+  "name": "yeloroute-aklan",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "start": "node server.mjs", "build": "node scripts/build-pages.mjs", "check": "node --check app.js && node --check routing-core.js && node --check server.mjs && node --check sw.js && node --check scripts/build-pages.mjs" }
+}

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#102d38"><title>YeloRoute Aklan · Dispatch</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml"><link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="vendor/leaflet.css">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="vendor/leaflet.js"></script>
+  <script defer src="routing-core.js"></script>
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <aside class="rail">
+    <a class="brand" href="./" aria-label="YeloRoute home"><img src="icon.svg" alt=""><span>yelo<span class="brand-light">route</span><small>AKLAN OPERATIONS</small></span></a>
+    <div class="rail-label">WORKSPACE</div>
+    <button class="nav active" id="dispatchView"><span>◈</span> Dispatch map</button>
+    <button class="nav" id="driverView"><span>▣</span> Driver view</button>
+    <button class="nav" id="settings"><span>⚙</span> Map settings</button>
+    <div class="rail-bottom"><span class="pilot-dot"></span> Prototype / v0.2<p>Ice where it's needed.<br>Catch moving on time.</p><div class="profile"><div>YR</div><span>Pilot workspace<small>Kalibo · Aklan</small></span></div></div>
+  </aside>
+  <main>
+    <header><div><div class="eyebrow">COLD-CHAIN COORDINATION</div><h1 id="pageTitle">Dispatch overview</h1></div><div class="header-actions"><span class="demo-badge">DEMO DATA</span><button class="button primary" id="newRequest">＋ New request</button></div></header>
+    <section class="metrics" aria-label="Operation summary">
+      <div><span>Ice available</span><strong>1,250 <small>kg</small></strong><p>2 sample suppliers</p></div>
+      <div><span>Requested ice</span><strong id="requested">420 <small>kg</small></strong><p id="requestCount">3 delivery requests</p></div>
+      <div><span>Vehicle capacity</span><strong>600 <small>kg</small></strong><p>Demo vehicle YR–01</p></div>
+      <div><span>Cold storage available</span><strong>800 <small>kg</small></strong><p>1 sample storage site</p></div>
+    </section>
+    <div class="workspace">
+      <section class="map-panel" aria-label="Dispatch map">
+        <div class="map-toolbar"><div><span class="pilot-dot"></span><strong>Kalibo & nearby towns</strong><small id="mapState">Street map</small></div><div class="map-actions"><button class="detail-button" id="detailView" title="Inspect buildings around central Kalibo">Kalibo detail ↗</button><div class="segmented"><button class="selected" id="street">Street</button><button id="satellite">Satellite</button></div></div></div>
+        <div class="map-wrap"><div id="map"><div class="map-fallback">Loading map…<small>Internet is needed for map imagery.</small></div></div><button class="fit-button" id="fit" aria-label="Fit all locations" title="Fit all locations">⌖</button><a class="maptiler-logo" id="maptilerLogo" href="https://www.maptiler.com/" target="_blank" rel="noopener" hidden><img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo" width="100"></a><div class="legend"><span><i class="supplier"></i> Ice supplier</span><span><i class="pickup"></i> Delivery</span><span><i class="storage"></i> Cold storage</span><span><i class="vehicle"></i> Vehicle</span></div></div>
+        <div class="map-caption"><span>⌁ <b id="routeLabel">Preparing road route</b><span id="routeCaption"> · OSRM / OpenStreetMap</span></span><button class="text-button" id="reset">Reset demo</button></div>
+        <div id="mapCredits" class="map-credits" role="note" aria-label="Map credits"></div>
+      </section>
+      <aside class="dispatch-panel">
+        <div class="panel-heading"><div class="eyebrow">DISPATCH BOARD</div><h2>Today's run <span id="stopCount">3 stops</span></h2></div>
+        <div class="vehicle-card"><div class="vehicle-icon"><img src="truck.svg" alt="Ice delivery truck"></div><div><strong>YR–01 · Ice delivery</strong><small id="vehicleStatus">Ready for simulation</small></div><span class="status-pill">DEMO</span><div class="capacity"><div><span>Planned load</span><b id="load">420 / 600 kg</b></div><div class="bar"><span id="loadBar"></span></div></div></div>
+        <section class="route-summary" aria-label="Road route summary"><div class="route-summary-heading"><span id="routeBadge" class="route-badge">CALCULATING</span><button id="refreshRoute" class="text-button">Recalculate</button></div><div class="route-stats"><div><strong id="routeDistance">—</strong><small>road distance</small></div><div><strong id="routeDuration">—</strong><small>estimated driving</small></div></div><p id="routeHelp">Finding roads between your delivery stops.</p><p id="snapNotice" class="snap-notice" hidden></p></section>
+        <div class="section-heading"><h3>Delivery sequence</h3><span>Listed order</span></div>
+        <div class="stop-list" id="stops"></div>
+        <div id="capacityWarning" class="warning" hidden></div>
+        <div class="simulation"><div><span class="pilot-dot"></span><b>Vehicle simulation</b><span id="progressText">0%</span></div><progress id="progress" max="100" value="0"></progress><button class="button primary wide" id="simulate" disabled>▶ Start simulation</button><label class="follow-toggle"><input type="checkbox" id="followVehicle"> Follow vehicle on map</label><p>Accelerated movement along the road route. Not live GPS. Driving estimates exclude traffic and loading.</p></div>
+      </aside>
+    </div>
+    <section class="driver-panel" id="driverPanel" hidden><div class="driver-heading"><div class="eyebrow">DRIVER / YR–01</div><h2>Your delivery run</h2><p>Sample handover checklist · this browser only</p></div><div id="driverStops"></div><p class="driver-note">Completed stops update the dispatcher view on this device. Multi-device syncing and real GPS are the next development phase.</p></section>
+    <footer>Sample facilities and quantities for demonstration. Verify locations and agreements before field use.</footer>
+  </main>
+  <dialog id="settingsDialog"><form id="settingsForm"><div class="eyebrow">SATELLITE IMAGERY</div><h2>Choose your satellite map</h2><p>Compare available imagery around Kalibo. Detail and image age depend on the provider's coverage.</p><label for="imageryProvider">Imagery provider</label><select id="imageryProvider"><option value="maptiler">MapTiler Satellite · free prototype plan</option><option value="esri">Esri World Imagery · free usage allowance</option></select><label for="apiKey" id="keyLabel">MapTiler public API key</label><input id="apiKey" type="password" autocomplete="off" placeholder="Paste your provider's key"><p class="form-help" id="providerHelp">Use your MapTiler key with localhost as an allowed origin. Free plan quotas and usage terms apply.</p><a id="providerSignup" href="https://cloud.maptiler.com/" target="_blank" rel="noopener">Get a MapTiler key ↗</a><p class="form-help">The selected key stays in this page session and is sent only to that provider. Satellite imagery is not live.</p><div class="dialog-actions"><button class="button" type="button" data-close="settingsDialog">Cancel</button><button class="button primary" id="saveKey">Connect satellite</button></div><p id="keyError" role="alert"></p></form></dialog>
+  <dialog id="requestDialog"><form id="requestForm"><div class="eyebrow">ADD TO DEMO</div><h2>New ice delivery</h2><p>Create a sample request at a preset location.</p><label for="requestName">Request label</label><input id="requestName" required maxlength="60" placeholder="e.g. Fisher group A"><label for="requestLocation">Delivery area</label><select id="requestLocation"><option value="kalibo">Kalibo</option><option value="numancia">Numancia</option><option value="newWashington">New Washington</option></select><div class="form-row"><div><label for="requestKg">Ice required (kg)</label><input id="requestKg" type="number" min="1" max="1250" required value="100"></div><div><label for="requestWindow">Requested window</label><select id="requestWindow"><option>Within 1 hour</option><option>Within 2 hours</option><option>Today</option></select></div></div><p class="form-help">Adding a request restarts the simulation. Windows are recorded; travel-time feasibility is not yet calculated.</p><div class="dialog-actions"><button class="button" type="button" data-close="requestDialog">Cancel</button><button class="button primary">Add request</button></div></form></dialog>
+  <div id="toast" role="status" hidden></div>
+  <div id="locationPickBanner" class="location-pick-banner" hidden><span>Click the port's vehicle entrance on the map.</span><button class="button" id="cancelLocationPick">Cancel</button></div>
+  <dialog id="locationDialog"><form id="locationForm"><div class="eyebrow">DELIVERY ACCESS POINT</div><h2 id="locationTitle">Correct stop location</h2><p>Place the pin at the road entrance used by the delivery vehicle. The previous demo coordinate is not a verified port.</p><label for="stopName">Stop name</label><input id="stopName" required maxlength="60"><div class="form-row"><div><label for="stopLatitude">Latitude</label><input id="stopLatitude" type="number" step="any" min="-90" max="90" required></div><div><label for="stopLongitude">Longitude</label><input id="stopLongitude" type="number" step="any" min="-180" max="180" required></div></div><button class="button wide" type="button" id="pickLocation">Choose entrance on map</button><p class="form-help">Use the port's confirmed coordinates or select its entrance in satellite view. Saving recalculates the road route and restarts the simulation.</p><div class="dialog-actions"><button class="button" type="button" data-close="locationDialog">Cancel</button><button class="button primary">Save access point</button></div><p id="locationError" role="alert"></p></form></dialog>
+</body>
+</html>
