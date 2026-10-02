@@ -15,8 +15,9 @@ A local, mobile-friendly dispatcher and driver demo for coordinating ice deliver
 These screenshots show a configured satellite session and a user-adjusted demo route. They do not verify landing-port locations. New visitors start with a free street map; satellite imagery requires their own browser API key.
 
 ## Live demo on GitHub Pages
-Satellite test key:AAPTa5RI0P3sbM4rtAHq9WIxvSA..YnklLF2J4ZipRaZeARJGg8KOdbSOW6uVDNG5qRKEUA452M2KhKLqpwnLQY1DuY5_eFQrKcxEzIGl13gAWEu7KvGJndpuojUOaNTcQqCjbeZM-6YoseCOKwNQTsnYNegkJdN9-yaudkdqXNokne6dcmxCWDox3jTz9ZkI9r-agIiBM3G9rjHBBUHe69S0LaPANACvKf_lZQTjBFectNVLcy2J5gMrZW70kwPnW-fFLfYehyuCAT1_fI5QVZX8
-**[Try the live demo](https://azzzriieell00.github.io/yeloroute-aklan/)**
+Satellite Test Key:AAPTa5RI0P3sbM4rtAHq9WIxvSA..YnklLF2J4ZipRaZeARJGg8KOdbSOW6uVDNG5qRKEUA452M2KhKLqpwnLQY1DuY5_eFQrKcxEzIGl13gAWEu7KvGJndpuojUOaNTcQqCjbeZM-6YoseCOKwNQTsnYNegkJdN9-yaudkdqXNokne6dcmxCWDox3jTz9ZkI9r-agIiBM3G9rjHBBUHe69S0LaPANACvKf_lZQTjBFectNVLcy2J5gMrZW70kwPnW-fFLfYehyuCAT1_fI5QVZX8
+**[Try the live demo]
+(https://azzzriieell00.github.io/yeloroute-aklan/)**
 
 This repository includes `.github/workflows/pages.yml` to publish the web app automatically from the `main` branch. The live URL becomes available after the first successful deployment; it is shown in **Settings → Pages** and the **github-pages** deployment.
 
